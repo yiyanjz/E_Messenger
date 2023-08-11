@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import GoogleSignIn
+import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -71,6 +73,19 @@ class LoginViewController: UIViewController {
     private let facebookLoginButton: FBLoginButton = {
         let button = FBLoginButton()
         button.permissions = ["email", "public_profile"]
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        return button
+    }()
+    
+    private let googleLoginButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Continue with Google", for: .normal)
+        button.backgroundColor = .link
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         return button
     }()
     
@@ -91,11 +106,17 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
         scrollView.addSubview(facebookLoginButton)
+        scrollView.addSubview(googleLoginButton)
 
         // add action for login button
         loginButton.addTarget(self,
                               action: #selector(loginButtonTapped),
                               for: .touchUpInside)
+        
+        // google button give an action
+        googleLoginButton.addTarget(self,
+                                    action: #selector(googleButtonTapped),
+                                    for: .touchUpInside)
         
         // delegates (transaction to view or controller)
         // example) emailfield hit enter goes to passwordfield hit enter again loginbutton tapped
@@ -103,8 +124,9 @@ class LoginViewController: UIViewController {
         passwordField.delegate = self
         facebookLoginButton.delegate = self
         
-        // facebok login button center after creating a private var
+        // facebok/google login button center after creating a UIButton
         facebookLoginButton.center = view.center
+        googleLoginButton.center = view.center
     }
     
     override func viewDidLayoutSubviews() {
@@ -133,6 +155,54 @@ class LoginViewController: UIViewController {
                                   y: loginButton.bottom + 20,
                                   width: scrollView.width-60,
                                   height: 52)
+        googleLoginButton.frame = CGRect(x: 30,
+                                  y: facebookLoginButton.bottom + 20,
+                                  width: scrollView.width-60,
+                                  height: 52)
+    }
+    
+    @objc private func googleButtonTapped() {
+        GIDSignIn.sharedInstance.signIn(withPresenting: self)
+        
+        guard let clientID = FirebaseApp.app()?.options.clientID else {
+            fatalError("no clientID found")
+        }
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        GIDSignIn.sharedInstance.signIn(withPresenting: self){ [weak self] result, error in
+            guard let strongSelf = self else {
+                return
+            }
+                        
+            guard let user = result?.user else {return}
+            guard let firstName = user.profile?.givenName,
+                  let lastName = user.profile?.familyName,
+                  let email = user.profile?.email,
+                  let idToken = user.idToken?.tokenString else {
+                    return
+            }
+            // add to database
+            DatabaseManager.shared.userExists(with: email, completion: { exists in
+                if !exists {
+                    DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
+                                                                        lastName: lastName,
+                                                                        emailAddress: email))
+                }
+            })
+            // grab credential for firbase login from google
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: user.accessToken.tokenString)
+            // firebase login
+            FirebaseAuth.Auth.auth().signIn(with: credential, completion: {authResult, error in
+                guard authResult != nil, error == nil else {
+                    print("failed to log in with google credentials")
+                    return
+                }
+                print("loggined into app")
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            })
+        }
     }
     
     @objc private func didTapRegister() {

@@ -22,11 +22,10 @@
 		17943AC12A85A92E0029DEA9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17943AC02A85A92E0029DEA9 /* ProfileViewController.swift */; };
 		17943AC42A85AEFA0029DEA9 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17943AC32A85AEFA0029DEA9 /* Extension.swift */; };
 		17943AC82A85CB4D0029DEA9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17943AC72A85CB4C0029DEA9 /* GoogleService-Info.plist */; };
-		D8A8E8FA8519D283719C539F /* Pods_E_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE186AA1CE6433551F62817A /* Pods_E_Messenger.framework */; };
+		3DCEADD7311496C2EB459B19 /* Pods_E_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C584790D748CDB05629CD13 /* Pods_E_Messenger.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		094467FBDFAB0A12D7BD2FE4 /* Pods-E_Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-E_Messenger.release.xcconfig"; path = "Target Support Files/Pods-E_Messenger/Pods-E_Messenger.release.xcconfig"; sourceTree = "<group>"; };
 		1772B1E22A85D1EC00144C3D /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		17943A992A85A2160029DEA9 /* E_Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = E_Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17943A9C2A85A2160029DEA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,8 +43,9 @@
 		17943AC02A85A92E0029DEA9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		17943AC32A85AEFA0029DEA9 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		17943AC72A85CB4C0029DEA9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		409A9ACF45BCC281ADFF9AFC /* Pods-E_Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-E_Messenger.debug.xcconfig"; path = "Target Support Files/Pods-E_Messenger/Pods-E_Messenger.debug.xcconfig"; sourceTree = "<group>"; };
-		AE186AA1CE6433551F62817A /* Pods_E_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_E_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C584790D748CDB05629CD13 /* Pods_E_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_E_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA60BB68EB242C2E6C69AE9B /* Pods-E_Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-E_Messenger.debug.xcconfig"; path = "Target Support Files/Pods-E_Messenger/Pods-E_Messenger.debug.xcconfig"; sourceTree = "<group>"; };
+		ECD8FF69869C2181CD8A9638 /* Pods-E_Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-E_Messenger.release.xcconfig"; path = "Target Support Files/Pods-E_Messenger/Pods-E_Messenger.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8A8E8FA8519D283719C539F /* Pods_E_Messenger.framework in Frameworks */,
+				3DCEADD7311496C2EB459B19 /* Pods_E_Messenger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +66,7 @@
 				17943A9B2A85A2160029DEA9 /* E_Messenger */,
 				17943A9A2A85A2160029DEA9 /* Products */,
 				D588D24540FD943660339022 /* Pods */,
-				E2A00DF408B739AFE6259262 /* Frameworks */,
+				6C3F5508804DE7E5FE9A879B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -157,21 +157,21 @@
 			path = Login_Register;
 			sourceTree = "<group>";
 		};
+		6C3F5508804DE7E5FE9A879B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9C584790D748CDB05629CD13 /* Pods_E_Messenger.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D588D24540FD943660339022 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				409A9ACF45BCC281ADFF9AFC /* Pods-E_Messenger.debug.xcconfig */,
-				094467FBDFAB0A12D7BD2FE4 /* Pods-E_Messenger.release.xcconfig */,
+				DA60BB68EB242C2E6C69AE9B /* Pods-E_Messenger.debug.xcconfig */,
+				ECD8FF69869C2181CD8A9638 /* Pods-E_Messenger.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		E2A00DF408B739AFE6259262 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AE186AA1CE6433551F62817A /* Pods_E_Messenger.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,11 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 17943AAD2A85A2170029DEA9 /* Build configuration list for PBXNativeTarget "E_Messenger" */;
 			buildPhases = (
-				D4EDC8E5F754BCD4E4604D7C /* [CP] Check Pods Manifest.lock */,
+				A76DEF63BC989D7B1FA040BE /* [CP] Check Pods Manifest.lock */,
 				17943A952A85A2160029DEA9 /* Sources */,
 				17943A962A85A2160029DEA9 /* Frameworks */,
 				17943A972A85A2160029DEA9 /* Resources */,
-				73D8FD160FCBEACAE1B68DA0 /* [CP] Embed Pods Frameworks */,
+				62B1071F166AD087BEDAEEE8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -244,7 +244,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		73D8FD160FCBEACAE1B68DA0 /* [CP] Embed Pods Frameworks */ = {
+		62B1071F166AD087BEDAEEE8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -261,7 +261,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-E_Messenger/Pods-E_Messenger-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D4EDC8E5F754BCD4E4604D7C /* [CP] Check Pods Manifest.lock */ = {
+		A76DEF63BC989D7B1FA040BE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -442,7 +442,7 @@
 		};
 		17943AAE2A85A2170029DEA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 409A9ACF45BCC281ADFF9AFC /* Pods-E_Messenger.debug.xcconfig */;
+			baseConfigurationReference = DA60BB68EB242C2E6C69AE9B /* Pods-E_Messenger.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -450,6 +450,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = E_Messenger/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please give camera access";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please give photo access";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -469,7 +471,7 @@
 		};
 		17943AAF2A85A2170029DEA9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 094467FBDFAB0A12D7BD2FE4 /* Pods-E_Messenger.release.xcconfig */;
+			baseConfigurationReference = ECD8FF69869C2181CD8A9638 /* Pods-E_Messenger.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -477,6 +479,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = E_Messenger/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please give camera access";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please give photo access";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

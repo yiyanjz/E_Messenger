@@ -12,4 +12,7 @@ pod 'Firebase/Database'
 # Facebook
 pod 'FBSDKLoginKit'
 
+# Google Sign
+pod 'GoogleSignIn'
+
 end
