@@ -191,7 +191,7 @@ extension LoginViewController: UITextFieldDelegate {
     }
 }
 
-// extension for delegate for login button
+// extension for delegate for facebook login button
 extension LoginViewController: LoginButtonDelegate {
     // this functions updates the text on facebook login button (not need for this project)
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
@@ -231,7 +231,7 @@ extension LoginViewController: LoginButtonDelegate {
             let firstName = nameComponents[0]
             let lastName = nameComponents[1]
             
-            // checks if user exist else signin
+            // checks if user exist else add data to database
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 if !exists {
                     DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
