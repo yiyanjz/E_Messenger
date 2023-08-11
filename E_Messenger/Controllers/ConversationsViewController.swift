@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ConversationsViewController: UIViewController {
 
@@ -16,12 +17,12 @@ class ConversationsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // stores isLogginIn value into system default with a key called "logged_in"
-        let isLoggedIn = UserDefaults.standard.bool(forKey: "logged_in")
-        
-        // check for login state
-        if !isLoggedIn {
+        validateAuth()
+    }
+    
+    private func validateAuth() {
+        // use firebase to check if there is an user
+        if FirebaseAuth.Auth.auth().currentUser == nil {
             let vc = LoginViewController()
             vc.title = "Login"
             // assign loginViewController as a navigation controller

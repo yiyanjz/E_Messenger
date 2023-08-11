@@ -187,20 +187,33 @@ class RegisterViewController: UIViewController {
                 return
         }
         
-        // Firebase Register Account
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: {authResult, error in
-            guard let result = authResult, error == nil else {
-                print("Error Creating User")
+        // check if user (email) exists
+        DatabaseManager.shared.userExists(with: email, completion: {[weak self] exists in
+            guard let strongSelf = self else {return}
+            guard !exists else {
+                // user already exists
+                strongSelf.alertUserRegisterError(message: "User Account Already Exists")
                 return
             }
             
-            let user = result.user
-            print("Created User: \(user)")
+            // Firebase Register Account
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
+                guard authResult != nil, error == nil else {
+                    print("Error Creating User")
+                    return
+                }
+                
+                // add data to database
+                DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
+                                                                    lastName: lastName,
+                                                                    emailAddress: email))
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            })
         })
     }
     
-    func alertUserRegisterError() {
-        let alert = UIAlertController(title: "Woops", message: "Enter All Information", preferredStyle: .alert)
+    func alertUserRegisterError(message: String = "Enter All Information") {
+        let alert = UIAlertController(title: "Woops", message:message , preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         present(alert, animated: true)
     }
