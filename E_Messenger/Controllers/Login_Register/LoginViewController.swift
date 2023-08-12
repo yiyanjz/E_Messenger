@@ -89,9 +89,19 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    private var loginObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
+        // create a notifaction observer
+        // call this NotificationCenter.default.post(name:.didLogInNotification, object:nil)
+        loginObserver = NotificationCenter.default.addObserver(forName: Notification.Name.didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
+            guard let strongSelf = self else {return}
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+
+        })
         
         // create a button on the right side
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
@@ -127,6 +137,13 @@ class LoginViewController: UIViewController {
         // facebok/google login button center after creating a UIButton
         facebookLoginButton.center = view.center
         googleLoginButton.center = view.center
+    }
+    
+    // get rid of observation if called (get rid of memory)
+    deinit{
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     override func viewDidLayoutSubviews() {
