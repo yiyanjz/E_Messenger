@@ -201,6 +201,10 @@ class LoginViewController: UIViewController {
                   let idToken = user.idToken?.tokenString else {
                     return
             }
+            
+            // save email to userDefaults for google,fb,and normal login
+            UserDefaults.standard.set(email, forKey: "email")
+            
             // add to database
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 if !exists {
@@ -289,6 +293,9 @@ class LoginViewController: UIViewController {
                 return
             }
             
+            // save email to userDefaults for google,fb,and normal login
+            UserDefaults.standard.set(email, forKey: "email")
+            
             let user = result.user
             print("User: \(user) Logged In")
             
@@ -356,6 +363,9 @@ extension LoginViewController: LoginButtonDelegate {
                 print("Failed to get email and name from fb result")
                 return
             }
+            
+            // save email to userDefaults for google,fb,and normal login
+            UserDefaults.standard.set(email, forKey: "email")
             
             // checks if user exist else add data to database
             DatabaseManager.shared.userExists(with: email, completion: { exists in
