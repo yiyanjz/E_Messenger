@@ -10,6 +10,10 @@ import JGProgressHUD
 
 class NewConversationViewController: UIViewController {
     
+    // stores value from search bar users to chat with
+    // could be with data or without data depending if user found
+    public var completion: (([String: String]) -> (Void))?
+    
     private let spinner = JGProgressHUD(style: .dark)
     
     // fetch and store all firebase result in here for cheaper  database
@@ -90,6 +94,12 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         // start converstation
+        let targetUserData = results[indexPath.row]
+        // pass data to conversationViewControler and then push to chatViewController
+        // here store data in completion
+        dismiss(animated: true, completion: { [weak self] in
+            self?.completion?(targetUserData)
+        })
     }
 }
 
