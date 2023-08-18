@@ -204,6 +204,7 @@ class LoginViewController: UIViewController {
             
             // save email to userDefaults for google,fb,and normal login
             UserDefaults.standard.set(email, forKey: "email")
+            UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
             
             // add to database
             DatabaseManager.shared.userExists(with: email, completion: { exists in
@@ -297,6 +298,21 @@ class LoginViewController: UIViewController {
             UserDefaults.standard.set(email, forKey: "email")
             
             let user = result.user
+            let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+            DatabaseManager.shared.getDataFor(path: safeEmail, completion: { result in
+                switch result {
+                case .success(let data):
+                    guard let userData = data as? [String:Any], let firstName = userData["first_name"], let lastName = userData["last_name"] else {
+                        return
+                    }
+                    // save name to userDefaults for google,fb,and normal login
+                    UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
+                    
+                case .failure(let eroor):
+                    print("Failed to read data with :\(eroor)")
+                }
+            })
+            
             print("User: \(user) Logged In")
             
             // dismiss controller after sign in
@@ -366,6 +382,7 @@ extension LoginViewController: LoginButtonDelegate {
             
             // save email to userDefaults for google,fb,and normal login
             UserDefaults.standard.set(email, forKey: "email")
+            UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
             
             // checks if user exist else add data to database
             DatabaseManager.shared.userExists(with: email, completion: { exists in
