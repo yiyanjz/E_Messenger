@@ -13,6 +13,8 @@ final class StorageManger {
     static let shared = StorageManger()
     private let storage = Storage.storage().reference()
     
+    let metadata = StorageMetadata()
+    
     public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
     
     /// Uploads picture to firebase storage and returns completion with url string for downlod
@@ -68,6 +70,37 @@ final class StorageManger {
                 completion(.success(urlString))
             })
         })
+    }
+    
+    /// Upload video that will be sent in a conversation message
+    public func uploadMessageVideo(with fileurl: URL, fileName: String, completion: @escaping UploadPictureCompletion) {
+        metadata.contentType = "video/quicktime"
+        
+        // convert video url to data
+        if let videoData = NSData(contentsOf: fileurl) as Data? {
+            storage.child("message_videos/\(fileName)").putData(videoData, completion: { [weak self] _, error in
+                guard let strongSelf = self else {return}
+                guard error == nil else {
+                    // failed
+                    print("failed to upload video file to firebase for video")
+                    completion(.failure(StorageErrors.failedToUpload))
+                    return
+                }
+                
+                // download url
+                strongSelf.storage.child("message_videos/\(fileName)").downloadURL(completion: { url, error in
+                    guard let url = url else {
+                        print("Failed to get download url")
+                        completion(.failure(StorageErrors.failedToGetDownloadUrl))
+                        return
+                    }
+                    
+                    let urlString = url.absoluteString
+                    print("download url return: \(urlString)")
+                    completion(.success(urlString))
+                })
+            })
+        }
     }
     
     public enum StorageErrors: Error {
