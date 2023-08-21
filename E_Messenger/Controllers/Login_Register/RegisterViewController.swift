@@ -216,6 +216,10 @@ class RegisterViewController: UIViewController {
                     return
                 }
                 
+                // cache user and email
+                UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
+                UserDefaults.standard.setValue(email, forKey: "email")
+                
                 // add data to database
                 let chatUser = ChatAppUser(firstName: firstName,
                                           lastName: lastName,

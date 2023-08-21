@@ -60,7 +60,6 @@ class ConversationsViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(noConversationsLabel)
         setupTableView()
-        fetchConversations()
         startListeningForConversations()
         
         // create a notifaction observer
@@ -91,14 +90,23 @@ class ConversationsViewController: UIViewController {
             case .success(let conversations):
                 print("successfully got conversation models")
                 guard !conversations.isEmpty else {
+                    // to show noConversation Label
+                    self?.tableView.isHidden = false
+                    self?.noConversationsLabel.isHidden = false
                     return
                 }
+                // if conversation found hide it
+                self?.noConversationsLabel.isHidden = true
+                self?.tableView.isHidden = false
                 self?.conversations = conversations
+                
                 // UI on main thread
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
+                self?.tableView.isHidden = true
+                self?.noConversationsLabel.isHidden = false
                 print("failed to get conversations: \(error)")
             }
         })
@@ -166,6 +174,11 @@ class ConversationsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+        // add frame for noConversation label
+        noConversationsLabel.frame = CGRect(x: 10,
+                                            y: (view.height-100)/2,
+                                            width: view.width-20,
+                                            height: 100)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -189,10 +202,6 @@ class ConversationsViewController: UIViewController {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-    }
-    
-    private func fetchConversations() {
-        tableView.isHidden = false
     }
 }
 
@@ -238,14 +247,16 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
         if editingStyle == .delete {
             // begin delete
             let conversationId = conversations[indexPath.row].id
-            
             tableView.beginUpdates()
+            
+            // remove cell (swipe left to delete
+            self.conversations.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+            
             // delete from database
             DatabaseManager.shared.deleteConversation(conversationId: conversationId, completion: { [weak self] success in
-                if success {
-                    // remove cell (swipe left to delete)
-                    self?.conversations.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .left)
+                if !success {
+                    print("Failed to delete conversation")
                 }
             })
             tableView.endUpdates()
