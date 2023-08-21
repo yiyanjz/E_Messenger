@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseDatabase
 import MessageKit
+import CoreLocation
 
 // this class cannot be subclass
 final class DatabaseManager {
@@ -417,11 +418,8 @@ extension DatabaseManager {
                       let senderEmail = dictionary["sender_email"] as? String,
                       let type = dictionary["type"] as? String,
                       let dateString = dictionary["date"] as? String,
-                      let date = ChatViewController.dateFormatter.date(from: dateString)
-                else {
-                    print("message info not collected")
-                    return nil
-                    
+                      let date = ChatViewController.dateFormatter.date(from: dateString) else {
+                        return nil
                 }
                 // give message a kind
                 var kind: MessageKind?
@@ -450,6 +448,22 @@ extension DatabaseManager {
                                       placeholderImage: placeHolder,
                                       size: CGSize(width: 300, height: 300))
                     kind = .video(media)
+                }
+                // render location message
+                else if type == "location" {
+                    // location message
+                    let locationComponents = content.components(separatedBy: ",")
+                    guard let longitude = Double(locationComponents[0]),
+                          let latitude = Double(locationComponents[1])
+                    else {
+                        return nil
+                    }
+                    
+                    print("Rendering Location: long=\(longitude), lat=\(latitude)")
+                    let location = Location(location: CLLocation(latitude: latitude, longitude: longitude),
+                                            size: CGSize(width: 300, height: 300))
+
+                    kind = .location(location)
                 }
                 else {
                     kind = .text(content)
@@ -506,8 +520,9 @@ extension DatabaseManager {
                 if let targetUrl = mediaItem.url?.absoluteString {
                     message = targetUrl
                 }
-            case .location(_):
-                break
+            case .location(let locationData):
+                let location = locationData.location
+                message = "\(location.coordinate.longitude),\(location.coordinate.latitude)"
             case .emoji(_):
                 break
             case .audio(_):
@@ -620,7 +635,7 @@ extension DatabaseManager {
                             
                             // get current user name
                             guard let currentName = UserDefaults.standard.value(forKey: "name") as? String else {
-                                return 
+                                return
                             }
 
                             if var otherUserConversations = snapshot.value as? [[String: Any]] {

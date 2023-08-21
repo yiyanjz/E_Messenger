@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		171AA45D2A90701500848C53 /* NewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171AA45C2A90701500848C53 /* NewConversationCell.swift */; };
+		171AA45F2A92E01E00848C53 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171AA45E2A92E01E00848C53 /* LocationPickerViewController.swift */; };
 		1726D2512A8995ED00739854 /* StorageManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1726D2502A8995ED00739854 /* StorageManger.swift */; };
 		1726D2532A8DC43700739854 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1726D2522A8DC43700739854 /* ConversationTableViewCell.swift */; };
 		1772B1E32A85D1EC00144C3D /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1772B1E22A85D1EC00144C3D /* DatabaseManager.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		171AA45C2A90701500848C53 /* NewConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationCell.swift; sourceTree = "<group>"; };
+		171AA45E2A92E01E00848C53 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		1726D2502A8995ED00739854 /* StorageManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManger.swift; sourceTree = "<group>"; };
 		1726D2522A8DC43700739854 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		1772B1E22A85D1EC00144C3D /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				17943ABE2A85A91E0029DEA9 /* NewConversationViewController.swift */,
 				17943AC02A85A92E0029DEA9 /* ProfileViewController.swift */,
 				17CADB9D2A870A9E00A086F4 /* ChatViewController.swift */,
+				171AA45E2A92E01E00848C53 /* LocationPickerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				17943A9F2A85A2160029DEA9 /* SceneDelegate.swift in Sources */,
 				17CADB9E2A870A9E00A086F4 /* ChatViewController.swift in Sources */,
 				17943ABB2A85A8E00029DEA9 /* PhotoViewerViewController.swift in Sources */,
+				171AA45F2A92E01E00848C53 /* LocationPickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
